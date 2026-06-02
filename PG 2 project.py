@@ -53,7 +53,11 @@ def menu():
         
 # Functions for each menu option
 def add_item():
-    name = input("Enter item name: ")
+    name = input("Enter item name: ").strip()
+    
+    if not name: 
+        print("Error: Item name cannot be blank!")
+        return  # Exit the function early
     quantity = get_int("Enter quantity: ")
     price = get_float("Enter price: ")
     inventory[name] = {"quantity": quantity, "price": price}
@@ -67,7 +71,7 @@ def edit_item():
         if key.lower() == name:
             match = key
             break
-
+        
     if match:
         quantity = get_int("Enter new quantity: ")
         price = get_float("Enter new price: ")
@@ -116,7 +120,6 @@ def display_items():
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
-
 
 def calculate_total_price(item):
     return get_total(inventory[item]["quantity"], inventory[item]["price"])
